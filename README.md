@@ -1,6 +1,6 @@
 # Sistema de Clasificación de Pedidos
 
-**Equipo:** [Tu nombre] y [Nombre compañero]  
+**Equipo:** BL4Z3YT y Yeisson Gaviria  
 **Modalidad:** A  
 **Fecha de entrega:** 03/03/2026
 
