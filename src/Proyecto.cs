@@ -110,7 +110,9 @@ class Program
             costoEnvio += COSTO_EXTERIOR;
         }
 
-        // ===== SALIDA =====
+    // Método para mostrar resumen del pedido
+    static void MostrarResumenPedido(decimal monto, int cantItems, string tipoCliente, string ciudad, string categoria, decimal costoBase, decimal costoEnvio)
+    {
         Console.WriteLine("\n===== RESUMEN DEL PEDIDO =====");
         Console.WriteLine($"Monto del pedido: ${monto:F2}");
         Console.WriteLine($"Cantidad de ítems: {cantItems}");
@@ -124,6 +126,10 @@ class Program
             Console.WriteLine($"Recargo por exterior: ${COSTO_EXTERIOR:F2}");
         }
         Console.WriteLine($"\nCOSTO TOTAL DE ENVÍO: ${costoEnvio:F2}");
+    }
+
+        // ===== SALIDA =====
+        MostrarResumenPedido(monto, cantItems, tipoCliente, ciudad, categoria, costoBase, costoEnvio);
         
         // Mensaje personalizado al cliente
         MostrarMensajeAlCliente(categoria, costoEnvio);
