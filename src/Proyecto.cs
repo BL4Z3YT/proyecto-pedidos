@@ -80,28 +80,28 @@ class Program
             return;
         }
 
-        // ===== PROCESO =====
-        string categoria;
-        decimal costoBase;
-
+    // Método para determinar categoría y costo base según reglas de negocio
+    static (string categoria, decimal costoBase) DeterminarCategoriaYCosto(decimal monto, string tipoCliente, int cantItems)
+    {
         // Regla 1: Envío gratis si monto >= 150.000 Y cliente recurrente
         if (monto >= MONTO_GRATIS && tipoCliente == "recurrente")
         {
-            categoria = "GRATIS";
-            costoBase = 0;
+            return ("GRATIS", 0);
         }
         // Regla 2: Envío express si ítems >= 5 O monto >= 300.000
         else if (cantItems >= ITEMS_EXPRESS || monto >= MONTO_EXPRESS)
         {
-            categoria = "EXPRESS";
-            costoBase = COSTO_BASE_EXPRESS;
+            return ("EXPRESS", COSTO_BASE_EXPRESS);
         }
         // Regla 3: Envío estándar en todos los demás casos
         else
         {
-            categoria = "ESTÁNDAR";
-            costoBase = COSTO_BASE_ESTANDAR;
+            return ("ESTÁNDAR", COSTO_BASE_ESTANDAR);
         }
+    }
+
+        // ===== PROCESO =====
+        var (categoria, costoBase) = DeterminarCategoriaYCosto(monto, tipoCliente, cantItems);
 
         // Regla 4: Costo adicional si ciudad es "exterior"
         decimal costoEnvio = costoBase;
