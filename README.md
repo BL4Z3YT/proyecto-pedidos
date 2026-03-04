@@ -114,10 +114,25 @@ dotnet run
 
 ## Commits Realizados
 
-1. **init:** README con descripción del problema y diseño IPO
-2. **feat:** Declaración de variables y lectura de entradas
-3. **feat:** Lógica condicional principal implementada
-4. **fix:** Ajustes según casos de prueba
+1. **init:** README con descripción del problema y diseño IPO (Juan David Agudelo)
+2. **feat:** Declaración de variables y lectura de entradas (Juan David Agudelo)
+3. **fix:** Ajustes según casos de prueba (Juan David Agudelo)
+4. **refactor:** Mejorar código con constantes y método separado para mensajes (Yeisson Gaviria)
+
+---
+
+## Mejoras Implementadas
+
+### Por Yeisson Gaviria
+- Refactorización del código usando constantes para valores mágicos
+- Creación de método separado `MostrarMensajeAlCliente()` para mejor modularidad
+- Mejora en validaciones (verificación de monto positivo)
+- Uso de switch statement para lógica de mensajes más limpia
+
+### Validación de Entrada
+- Uso de `TryParse` para conversiones seguras
+- Validación de rango para todos los inputs
+- Mensajes de error descriptivos
 
 ---
 
@@ -125,4 +140,4 @@ dotnet run
 
 - El programa solicita entrada por consola usando `Console.ReadLine()`
 - Se recomienda el uso de `decimal.TryParse()` para conversión robusta
-- Cada integrante debe hacer al menos 1 commit con cambios significativos
+- Cada integrante ha contribuido con commits que representan al menos 5% del avance
