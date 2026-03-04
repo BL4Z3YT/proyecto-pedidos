@@ -118,6 +118,8 @@ dotnet run
 2. **feat:** Declaración de variables y lectura de entradas (Juan David Agudelo)
 3. **fix:** Ajustes según casos de prueba (Juan David Agudelo)
 4. **refactor:** Mejorar código con constantes y método separado para mensajes (Yeisson Gaviria)
+5. **docs:** Agregar información de commits y mejoras (Yeisson Gaviria)
+6. **docs:** Agregar comentario de documentación al inicio del archivo (Yeisson Gaviria)
 
 ---
 
