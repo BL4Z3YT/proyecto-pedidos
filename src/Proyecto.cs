@@ -23,36 +23,58 @@ class Program
     private const decimal COSTO_BASE_ESTANDAR = 15000;
     private const decimal COSTO_EXTERIOR = 20000;
 
+    // Método para validar entrada decimal positiva
+    static bool ValidarDecimalPositivo(string entrada, out decimal valor, string campo)
+    {
+        if (!decimal.TryParse(entrada, out valor) || valor <= 0)
+        {
+            Console.WriteLine($"Error: {campo} debe ser un valor positivo mayor a cero.");
+            return false;
+        }
+        return true;
+    }
+
+    // Método para validar entrada de texto con opciones específicas
+    static bool ValidarOpcionTexto(string entrada, string[] opcionesValidas, out string valor, string campo)
+    {
+        valor = (entrada ?? "").ToLower().Trim();
+        foreach (string opcion in opcionesValidas)
+        {
+            if (valor == opcion) return true;
+        }
+        Console.WriteLine($"Error: {campo} debe ser una de las siguientes opciones: {string.Join(", ", opcionesValidas)}");
+        return false;
+    }
+
     static void Main()
     {
         Console.WriteLine("===== SISTEMA DE CLASIFICACIÓN DE PEDIDOS =====\n");
 
         // ===== ENTRADA =====
         Console.Write("Ingrese el monto del pedido ($): ");
-        if (!decimal.TryParse(Console.ReadLine(), out decimal monto) || monto <= 0)
+        string entradaMonto = Console.ReadLine() ?? "";
+        if (!ValidarDecimalPositivo(entradaMonto, out decimal monto, "Monto del pedido"))
         {
-            Console.WriteLine("Error: Monto debe ser un valor positivo.");
             return;
         }
 
         Console.Write("Ingrese la ciudad destino (interior/exterior): ");
-        string ciudad = (Console.ReadLine() ?? "").ToLower().Trim();
-        if (ciudad != "interior" && ciudad != "exterior")
+        string entradaCiudad = Console.ReadLine() ?? "";
+        if (!ValidarOpcionTexto(entradaCiudad, new string[] { "interior", "exterior" }, out string ciudad, "Ciudad destino"))
         {
-            Console.WriteLine("Error: Ciudad debe ser 'interior' o 'exterior'.");
             return;
         }
 
         Console.Write("Ingrese el tipo de cliente (nuevo/recurrente): ");
-        string tipoCliente = (Console.ReadLine() ?? "").ToLower().Trim();
-        if (tipoCliente != "nuevo" && tipoCliente != "recurrente")
+        string entradaCliente = Console.ReadLine() ?? "";
+        if (!ValidarOpcionTexto(entradaCliente, new string[] { "nuevo", "recurrente" }, out string tipoCliente, "Tipo de cliente"))
         {
-            Console.WriteLine("Error: Tipo de cliente debe ser 'nuevo' o 'recurrente'.");
             return;
         }
 
         Console.Write("Ingrese la cantidad de ítems: ");
-        if (!int.TryParse(Console.ReadLine(), out int cantItems) || cantItems < 1)
+        string entradaItems = Console.ReadLine() ?? "";
+        if (!int.TryParse(entradaItems, out int cantItems) || cantItems < 1)
         {
             Console.WriteLine("Error: Cantidad de ítems debe ser mayor a 0.");
             return;
