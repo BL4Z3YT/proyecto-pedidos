@@ -1,6 +1,6 @@
 # Sistema de Clasificación de Pedidos
 
-**Equipo:** BL4Z3YT y Yeisson Gaviria  
+**Equipo:** Juan David Agudelo y Yeisson Gaviria  
 **Modalidad:** A  
 **Fecha de entrega:** 03/03/2026
 
