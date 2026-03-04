@@ -1,5 +1,18 @@
 using System;
 
+/*
+ * SISTEMA DE CLASIFICACIÓN DE PEDIDOS
+ * Proyecto Integrador - Entrega 1
+ * I.U. Pascual Bravo - Lógica de Programación
+ * 
+ * Equipo: Juan David Agudelo y Yeisson Gaviria
+ * Modalidad: A (Problema propuesto por el docente)
+ * 
+ * Descripción: Programa que clasifica pedidos según monto, ciudad, 
+ * tipo de cliente y cantidad de ítems para determinar categoría 
+ * de despacho y costo de envío.
+ */
+
 class Program
 {
     // Constantes para las reglas de negocio
