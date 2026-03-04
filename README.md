@@ -74,20 +74,26 @@ Una tienda en línea necesita un programa que, dados los datos de un pedido, det
 
 ## Casos de Prueba
 
+Se incluyen casos de prueba detallados en el archivo [`test-cases.md`](test-cases.md) que cubren:
+
+- Todos los escenarios de clasificación (GRATIS, EXPRESS, ESTÁNDAR)
+- Validaciones de entrada
+- Casos borde y errores
+- Recargos por ciudad exterior
+
+### **Ejemplos principales:**
+
 ### **Caso Normal (Envío Estándar)**
 - **Entrada:** monto = $100.000, ciudad = "interior", tipoCliente = "nuevo", cantItems = 2
 - **Salida esperada:** Categoría = "ESTÁNDAR", Costo = $15.000
-- **Razonamiento:** No cumple ninguna condición especial, asignado a estándar
 
 ### **Caso Borde (Envío Gratis + Exterior)**
 - **Entrada:** monto = $180.000, ciudad = "exterior", tipoCliente = "recurrente", cantItems = 3
 - **Salida esperada:** Categoría = "GRATIS", Costo = $20.000
-- **Razonamiento:** Cumple la Regla 1 (gratis), pero suma costo exterior
 
 ### **Caso Express**
 - **Entrada:** monto = $50.000, ciudad = "interior", tipoCliente = "nuevo", cantItems = 6
 - **Salida esperada:** Categoría = "EXPRESS", Costo = $25.000
-- **Razonamiento:** Cumple la Regla 2 (cantItems ≥ 5)
 
 ---
 
