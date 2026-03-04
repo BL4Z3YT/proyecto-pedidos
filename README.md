@@ -112,6 +112,14 @@ dotnet run
 
 ---
 
+## Estado del Proyecto
+
+✓ **Proyecto completado** - Sistema de clasificación de pedidos funcionando  
+✓ **Equipo colaborando** - Ambos integrantes con commits verificados  
+✓ **20%** de mejoras y refactorización implementadas por Yeisson Gaviria  
+
+---
+
 ## Commits Realizados
 
 1. **init:** README con descripción del problema y diseño IPO (Juan David Agudelo)
