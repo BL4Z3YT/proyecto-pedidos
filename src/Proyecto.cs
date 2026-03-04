@@ -2,15 +2,23 @@ using System;
 
 class Program
 {
+    // Constantes para las reglas de negocio
+    private const decimal MONTO_GRATIS = 150000;
+    private const decimal MONTO_EXPRESS = 300000;
+    private const int ITEMS_EXPRESS = 5;
+    private const decimal COSTO_BASE_EXPRESS = 25000;
+    private const decimal COSTO_BASE_ESTANDAR = 15000;
+    private const decimal COSTO_EXTERIOR = 20000;
+
     static void Main()
     {
         Console.WriteLine("===== SISTEMA DE CLASIFICACIÓN DE PEDIDOS =====\n");
 
         // ===== ENTRADA =====
         Console.Write("Ingrese el monto del pedido ($): ");
-        if (!decimal.TryParse(Console.ReadLine(), out decimal monto))
+        if (!decimal.TryParse(Console.ReadLine(), out decimal monto) || monto <= 0)
         {
-            Console.WriteLine("Error: Monto inválido.");
+            Console.WriteLine("Error: Monto debe ser un valor positivo.");
             return;
         }
 
@@ -42,29 +50,29 @@ class Program
         decimal costoBase;
 
         // Regla 1: Envío gratis si monto >= 150.000 Y cliente recurrente
-        if (monto >= 150000 && tipoCliente == "recurrente")
+        if (monto >= MONTO_GRATIS && tipoCliente == "recurrente")
         {
             categoria = "GRATIS";
             costoBase = 0;
         }
         // Regla 2: Envío express si ítems >= 5 O monto >= 300.000
-        else if (cantItems >= 5 || monto >= 300000)
+        else if (cantItems >= ITEMS_EXPRESS || monto >= MONTO_EXPRESS)
         {
             categoria = "EXPRESS";
-            costoBase = 25000;
+            costoBase = COSTO_BASE_EXPRESS;
         }
         // Regla 3: Envío estándar en todos los demás casos
         else
         {
             categoria = "ESTÁNDAR";
-            costoBase = 15000;
+            costoBase = COSTO_BASE_ESTANDAR;
         }
 
         // Regla 4: Costo adicional si ciudad es "exterior"
         decimal costoEnvio = costoBase;
         if (ciudad == "exterior")
         {
-            costoEnvio += 20000;
+            costoEnvio += COSTO_EXTERIOR;
         }
 
         // ===== SALIDA =====
@@ -78,25 +86,31 @@ class Program
         Console.WriteLine($"Costo base: ${costoBase:F2}");
         if (ciudad == "exterior")
         {
-            Console.WriteLine($"Recargo por exterior: ${20000:F2}");
+            Console.WriteLine($"Recargo por exterior: ${COSTO_EXTERIOR:F2}");
         }
         Console.WriteLine($"\nCOSTO TOTAL DE ENVÍO: ${costoEnvio:F2}");
         
-        // Mensaje personalizado
-        Console.WriteLine("\n----- MENSAJE AL CLIENTE -----");
-        if (categoria == "GRATIS")
-        {
-            Console.WriteLine($"¡Excelente! Tu envío es GRATIS. Total a pagar: ${costoEnvio:F2}");
-        }
-        else if (categoria == "EXPRESS")
-        {
-            Console.WriteLine($"Tu pedido será entregado con EXPRESS. Costo de envío: ${costoEnvio:F2}");
-        }
-        else
-        {
-            Console.WriteLine($"Tu pedido será entregado de forma ESTÁNDAR. Costo de envío: ${costoEnvio:F2}");
-        }
+        // Mensaje personalizado al cliente
+        MostrarMensajeAlCliente(categoria, costoEnvio);
         
         Console.WriteLine("==============================");
+    }
+
+    // Método para mostrar mensaje personalizado según categoría
+    static void MostrarMensajeAlCliente(string categoria, decimal costoEnvio)
+    {
+        Console.WriteLine("\n----- MENSAJE AL CLIENTE -----");
+        switch (categoria)
+        {
+            case "GRATIS":
+                Console.WriteLine($"¡Excelente! Tu envío es GRATIS. Total a pagar: ${costoEnvio:F2}");
+                break;
+            case "EXPRESS":
+                Console.WriteLine($"Tu pedido será entregado con EXPRESS. Costo de envío: ${costoEnvio:F2}");
+                break;
+            default:
+                Console.WriteLine($"Tu pedido será entregado de forma ESTÁNDAR. Costo de envío: ${costoEnvio:F2}");
+                break;
+        };
     }
 }
