@@ -1,0 +1,28 @@
+# Directorios de compilación
+bin/
+obj/
+.vs/
+.vscode/
+
+# Archivos de usuario
+*.user
+*.suo
+*.sln.docstates
+
+# Archivos temporales
+*.tmp
+*.temp
+*~
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# IDEs
+.idea/
+*.swp
+*.swo
+
+# NuGet
+*.nupkg
+.nuget/
