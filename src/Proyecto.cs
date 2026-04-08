@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 /*
  * SISTEMA DE CLASIFICACIÓN DE PEDIDOS
- * Proyecto Integrador - Entrega 1
+ * Proyecto Integrador - Entrega 2
  * I.U. Pascual Bravo - Lógica de Programación
  * 
  * Equipo: Juan David Agudelo y Yeisson Gaviria
@@ -10,7 +12,8 @@ using System;
  * 
  * Descripción: Programa que clasifica pedidos según monto, ciudad, 
  * tipo de cliente y cantidad de ítems para determinar categoría 
- * de despacho y costo de envío.
+ * de despacho y costo de envío. Versión con menú continuo, 
+ * registros múltiples y reportes estadísticos.
  */
 
 class Program
@@ -22,6 +25,9 @@ class Program
     private const decimal COSTO_BASE_EXPRESS = 25000;
     private const decimal COSTO_BASE_ESTANDAR = 15000;
     private const decimal COSTO_EXTERIOR = 20000;
+
+    // Record para almacenar los datos de un pedido
+    record Pedido(decimal Monto, string Ciudad, string TipoCliente, int CantItems, string Categoria, decimal CostoEnvio);
 
     // Método para validar entrada decimal positiva
     static bool ValidarDecimalPositivo(string entrada, out decimal valor, string campo)
@@ -46,95 +52,101 @@ class Program
         return false;
     }
 
-    static void Main()
+    // Método para capturar un pedido desde la consola
+    static Pedido? CapturarPedido()
     {
-        Console.WriteLine("===== SISTEMA DE CLASIFICACIÓN DE PEDIDOS =====\n");
+        Console.WriteLine("\n===== NUEVO PEDIDO =====");
 
-        // ===== ENTRADA =====
+        // Entrada del monto
         Console.Write("Ingrese el monto del pedido ($): ");
         string entradaMonto = Console.ReadLine() ?? "";
         if (!ValidarDecimalPositivo(entradaMonto, out decimal monto, "Monto del pedido"))
         {
-            return;
+            return null;
         }
 
+        // Entrada de la ciudad
         Console.Write("Ingrese la ciudad destino (interior/exterior): ");
         string entradaCiudad = Console.ReadLine() ?? "";
         if (!ValidarOpcionTexto(entradaCiudad, new string[] { "interior", "exterior" }, out string ciudad, "Ciudad destino"))
         {
-            return;
+            return null;
         }
 
+        // Entrada del tipo de cliente
         Console.Write("Ingrese el tipo de cliente (nuevo/recurrente): ");
         string entradaCliente = Console.ReadLine() ?? "";
         if (!ValidarOpcionTexto(entradaCliente, new string[] { "nuevo", "recurrente" }, out string tipoCliente, "Tipo de cliente"))
         {
-            return;
+            return null;
         }
 
+        // Entrada de la cantidad de ítems
         Console.Write("Ingrese la cantidad de ítems: ");
         string entradaItems = Console.ReadLine() ?? "";
         if (!int.TryParse(entradaItems, out int cantItems) || cantItems < 1)
         {
             Console.WriteLine("Error: Cantidad de ítems debe ser mayor a 0.");
-            return;
+            return null;
         }
 
-    // Método para determinar categoría y costo base según reglas de negocio
-    static (string categoria, decimal costoBase) DeterminarCategoriaYCosto(decimal monto, string tipoCliente, int cantItems)
-    {
-        // Regla 1: Envío gratis si monto >= 150.000 Y cliente recurrente
-        if (monto >= MONTO_GRATIS && tipoCliente == "recurrente")
-        {
-            return ("GRATIS", 0);
-        }
-        // Regla 2: Envío express si ítems >= 5 O monto >= 300.000
-        else if (cantItems >= ITEMS_EXPRESS || monto >= MONTO_EXPRESS)
-        {
-            return ("EXPRESS", COSTO_BASE_EXPRESS);
-        }
-        // Regla 3: Envío estándar en todos los demás casos
-        else
-        {
-            return ("ESTÁNDAR", COSTO_BASE_ESTANDAR);
-        }
-    }
-
-        // ===== PROCESO =====
+        // Procesar el pedido
         var (categoria, costoBase) = DeterminarCategoriaYCosto(monto, tipoCliente, cantItems);
-
-        // Regla 4: Costo adicional si ciudad es "exterior"
         decimal costoEnvio = costoBase;
         if (ciudad == "exterior")
         {
             costoEnvio += COSTO_EXTERIOR;
         }
 
-    // Método para mostrar resumen del pedido
-    static void MostrarResumenPedido(decimal monto, int cantItems, string tipoCliente, string ciudad, string categoria, decimal costoBase, decimal costoEnvio)
-    {
-        Console.WriteLine("\n===== RESUMEN DEL PEDIDO =====");
-        Console.WriteLine($"Monto del pedido: ${monto:F2}");
-        Console.WriteLine($"Cantidad de ítems: {cantItems}");
-        Console.WriteLine($"Tipo de cliente: {tipoCliente}");
-        Console.WriteLine($"Ciudad destino: {ciudad}");
-        Console.WriteLine("\n----- RESULTADO -----");
-        Console.WriteLine($"Categoría de despacho: {categoria}");
-        Console.WriteLine($"Costo base: ${costoBase:F2}");
-        if (ciudad == "exterior")
-        {
-            Console.WriteLine($"Recargo por exterior: ${COSTO_EXTERIOR:F2}");
-        }
-        Console.WriteLine($"\nCOSTO TOTAL DE ENVÍO: ${costoEnvio:F2}");
-    }
-
-        // ===== SALIDA =====
+        // Mostrar resumen
         MostrarResumenPedido(monto, cantItems, tipoCliente, ciudad, categoria, costoBase, costoEnvio);
-        
-        // Mensaje personalizado al cliente
         MostrarMensajeAlCliente(categoria, costoEnvio);
-        
-        Console.WriteLine("==============================");
+
+        // Retornar el pedido
+        return new Pedido(monto, ciudad, tipoCliente, cantItems, categoria, costoEnvio);
+    }
+    {
+        Console.WriteLine("===== SISTEMA DE CLASIFICACIÓN DE PEDIDOS - ENTREGA 2 =====\n");
+
+        List<Pedido> pedidos = new List<Pedido>();
+
+        while (true)
+        {
+            Console.WriteLine("\n----- MENÚ PRINCIPAL -----");
+            Console.WriteLine("1. Agregar nuevo pedido");
+            Console.WriteLine("2. Mostrar estadísticas");
+            Console.WriteLine("3. Salir");
+            Console.Write("Seleccione una opción: ");
+
+            string opcion = Console.ReadLine()?.Trim();
+
+            if (opcion == "1")
+            {
+                Pedido? nuevoPedido = CapturarPedido();
+                if (nuevoPedido != null)
+                {
+                    pedidos.Add(nuevoPedido.Value);
+                    Console.WriteLine("Pedido agregado exitosamente.");
+                }
+                else
+                {
+                    Console.WriteLine("No se pudo agregar el pedido debido a datos inválidos.");
+                }
+            }
+            else if (opcion == "2")
+            {
+                MostrarEstadisticas(pedidos);
+            }
+            else if (opcion == "3")
+            {
+                Console.WriteLine("¡Gracias por usar el sistema!");
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Opción inválida. Intente nuevamente.");
+            }
+        }
     }
 
     // Método para mostrar mensaje personalizado según categoría
@@ -154,4 +166,46 @@ class Program
                 break;
         };
     }
-}
+
+    // Método para mostrar estadísticas de los pedidos
+    static void MostrarEstadisticas(List<Pedido> pedidos)
+    {
+        Console.WriteLine("\n===== ESTADÍSTICAS DE PEDIDOS =====");
+        if (pedidos.Count == 0)
+        {
+            Console.WriteLine("No hay pedidos registrados.");
+            return;
+        }
+
+        int totalPedidos = pedidos.Count;
+        decimal totalCostoEnvio = pedidos.Sum(p => p.CostoEnvio);
+        decimal promedioCosto = totalCostoEnvio / totalPedidos;
+
+        Console.WriteLine($"Total de pedidos procesados: {totalPedidos}");
+        Console.WriteLine($"Costo total de envíos: ${totalCostoEnvio:F2}");
+        Console.WriteLine($"Costo promedio de envío: ${promedioCosto:F2}");
+
+        // Estadísticas por categoría
+        var categorias = pedidos.GroupBy(p => p.Categoria).Select(g => new { Categoria = g.Key, Cantidad = g.Count(), TotalCosto = g.Sum(p => p.CostoEnvio) });
+        Console.WriteLine("\nEstadísticas por categoría:");
+        foreach (var cat in categorias)
+        {
+            Console.WriteLine($"- {cat.Categoria}: {cat.Cantidad} pedidos, Total: ${cat.TotalCosto:F2}");
+        }
+
+        // Estadísticas por ciudad
+        var ciudades = pedidos.GroupBy(p => p.Ciudad).Select(g => new { Ciudad = g.Key, Cantidad = g.Count() });
+        Console.WriteLine("\nEstadísticas por ciudad destino:");
+        foreach (var ciu in ciudades)
+        {
+            Console.WriteLine($"- {ciu.Ciudad}: {ciu.Cantidad} pedidos");
+        }
+
+        // Estadísticas por tipo de cliente
+        var tiposCliente = pedidos.GroupBy(p => p.TipoCliente).Select(g => new { Tipo = g.Key, Cantidad = g.Count() });
+        Console.WriteLine("\nEstadísticas por tipo de cliente:");
+        foreach (var tipo in tiposCliente)
+        {
+            Console.WriteLine($"- {tipo.Tipo}: {tipo.Cantidad} pedidos");
+        }
+    }
