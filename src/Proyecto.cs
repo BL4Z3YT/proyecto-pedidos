@@ -174,6 +174,40 @@ class Program
         return $"${valor:F2}";
     }
 
+    // Método para mostrar resumen del pedido
+    static void MostrarResumenPedido(decimal monto, int cantItems, string tipoCliente, string ciudad, string categoria, decimal costoBase, decimal costoEnvio)
+    {
+        Console.WriteLine("\n===== RESUMEN DEL PEDIDO =====");
+        Console.WriteLine($"Monto del pedido: {FormatearMoneda(monto)}");
+        Console.WriteLine($"Cantidad de ítems: {cantItems}");
+        Console.WriteLine($"Tipo de cliente: {tipoCliente}");
+        Console.WriteLine($"Ciudad destino: {ciudad}");
+        Console.WriteLine("\n----- RESULTADO -----");
+        Console.WriteLine($"Categoría de despacho: {categoria}");
+        Console.WriteLine($"Costo base: {FormatearMoneda(costoBase)}");
+        if (ciudad == "exterior")
+        {
+            Console.WriteLine($"Recargo por exterior: {FormatearMoneda(COSTO_EXTERIOR)}");
+        }
+        Console.WriteLine($"\nCOSTO TOTAL DE ENVÍO: {FormatearMoneda(costoEnvio)}");
+    }
+
+    static (string categoria, decimal costoBase) DeterminarCategoriaYCosto(decimal monto, string tipoCliente, int cantItems)
+    {
+        if (monto >= MONTO_GRATIS && tipoCliente == "recurrente")
+        {
+            return ("GRATIS", 0);
+        }
+        else if (cantItems >= ITEMS_EXPRESS || monto >= MONTO_EXPRESS)
+        {
+            return ("EXPRESS", COSTO_BASE_EXPRESS);
+        }
+        else
+        {
+            return ("ESTÁNDAR", COSTO_BASE_ESTANDAR);
+        }
+    }
+
     // Método para mostrar estadísticas de los pedidos
     static void MostrarEstadisticas(List<Pedido> pedidos)
     {
