@@ -223,15 +223,15 @@ class Program
         decimal promedioCosto = totalCostoEnvio / totalPedidos;
 
         Console.WriteLine($"Total de pedidos procesados: {totalPedidos}");
-        Console.WriteLine($"Costo total de envíos: ${totalCostoEnvio:F2}");
-        Console.WriteLine($"Costo promedio de envío: ${promedioCosto:F2}");
+        Console.WriteLine($"Costo total de envíos: {FormatearMoneda(totalCostoEnvio)}");
+        Console.WriteLine($"Costo promedio de envío: {FormatearMoneda(promedioCosto)}");
 
         // Estadísticas por categoría
         var categorias = pedidos.GroupBy(p => p.Categoria).Select(g => new { Categoria = g.Key, Cantidad = g.Count(), TotalCosto = g.Sum(p => p.CostoEnvio) });
         Console.WriteLine("\nEstadísticas por categoría:");
         foreach (var cat in categorias)
         {
-            Console.WriteLine($"- {cat.Categoria}: {cat.Cantidad} pedidos, Total: ${cat.TotalCosto:F2}");
+            Console.WriteLine($"- {cat.Categoria}: {cat.Cantidad} pedidos, Total: {FormatearMoneda(cat.TotalCosto)}");
         }
 
         // Estadísticas por ciudad
