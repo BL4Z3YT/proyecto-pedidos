@@ -1,6 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel;
+
+namespace System.Runtime.CompilerServices
+{
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    internal static class IsExternalInit { }
+}
 
 /*
  * SISTEMA DE CLASIFICACIÓN DE PEDIDOS
@@ -57,37 +64,53 @@ class Program
     {
         Console.WriteLine("\n===== NUEVO PEDIDO =====");
 
-        // Entrada del monto
-        Console.Write("Ingrese el monto del pedido ($): ");
-        string entradaMonto = Console.ReadLine() ?? "";
-        if (!ValidarDecimalPositivo(entradaMonto, out decimal monto, "Monto del pedido"))
+        // Entrada del monto (reintentos)
+        decimal monto = 0;
+        while (true)
         {
-            return null;
+            Console.Write("Ingrese el monto del pedido ($): ");
+            string entradaMonto = Console.ReadLine() ?? "";
+            if (ValidarDecimalPositivo(entradaMonto, out monto, "Monto del pedido"))
+            {
+                break;
+            }
         }
 
-        // Entrada de la ciudad
-        Console.Write("Ingrese la ciudad destino (interior/exterior): ");
-        string entradaCiudad = Console.ReadLine() ?? "";
-        if (!ValidarOpcionTexto(entradaCiudad, new string[] { "interior", "exterior" }, out string ciudad, "Ciudad destino"))
+        // Entrada de la ciudad (reintentos)
+        string ciudad = "";
+        while (true)
         {
-            return null;
+            Console.Write("Ingrese la ciudad destino (interior/exterior): ");
+            string entradaCiudad = Console.ReadLine() ?? "";
+            if (ValidarOpcionTexto(entradaCiudad, new string[] { "interior", "exterior" }, out ciudad, "Ciudad destino"))
+            {
+                break;
+            }
         }
 
-        // Entrada del tipo de cliente
-        Console.Write("Ingrese el tipo de cliente (nuevo/recurrente): ");
-        string entradaCliente = Console.ReadLine() ?? "";
-        if (!ValidarOpcionTexto(entradaCliente, new string[] { "nuevo", "recurrente" }, out string tipoCliente, "Tipo de cliente"))
+        // Entrada del tipo de cliente (reintentos)
+        string tipoCliente = "";
+        while (true)
         {
-            return null;
+            Console.Write("Ingrese el tipo de cliente (nuevo/recurrente): ");
+            string entradaCliente = Console.ReadLine() ?? "";
+            if (ValidarOpcionTexto(entradaCliente, new string[] { "nuevo", "recurrente" }, out tipoCliente, "Tipo de cliente"))
+            {
+                break;
+            }
         }
 
-        // Entrada de la cantidad de ítems
-        Console.Write("Ingrese la cantidad de ítems: ");
-        string entradaItems = Console.ReadLine() ?? "";
-        if (!int.TryParse(entradaItems, out int cantItems) || cantItems < 1)
+        // Entrada de la cantidad de ítems (reintentos)
+        int cantItems = 0;
+        while (true)
         {
+            Console.Write("Ingrese la cantidad de ítems: ");
+            string entradaItems = Console.ReadLine() ?? "";
+            if (int.TryParse(entradaItems, out cantItems) && cantItems >= 1)
+            {
+                break;
+            }
             Console.WriteLine("Error: Cantidad de ítems debe ser mayor a 0.");
-            return null;
         }
 
         // Procesar el pedido
@@ -122,16 +145,9 @@ class Program
             switch (opcion)
             {
                 case "1":
-                    Pedido? nuevoPedido = CapturarPedido();
-                    if (nuevoPedido != null)
-                    {
-                        pedidos.Add(nuevoPedido.Value);
-                        Console.WriteLine("Pedido agregado exitosamente.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("No se pudo agregar el pedido debido a datos inválidos.");
-                    }
+                    Pedido nuevoPedido = CapturarPedido();
+                    pedidos.Add(nuevoPedido);
+                    Console.WriteLine("Pedido agregado exitosamente.");
                     PresionarEnterParaContinuar();
                     break;
 
@@ -273,3 +289,4 @@ class Program
             Console.WriteLine($"- {tipo.Tipo}: {tipo.Cantidad} pedidos");
         }
     }
+}
