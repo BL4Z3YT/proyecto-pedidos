@@ -161,3 +161,4 @@ dotnet run
 - El programa solicita entrada por consola usando `Console.ReadLine()`
 - Se recomienda el uso de `decimal.TryParse()` para conversión robusta
 - Cada integrante ha contribuido con commits que representan al menos 5% del avance
+- Esta entrega incluye 4 commits a nombre de BL4Z3YT y 4 commits a nombre de Yeisson Gaviria
