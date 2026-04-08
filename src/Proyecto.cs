@@ -105,6 +105,8 @@ class Program
         // Retornar el pedido
         return new Pedido(monto, ciudad, tipoCliente, cantItems, categoria, costoEnvio);
     }
+
+    static void Main()
     {
         Console.WriteLine("===== SISTEMA DE CLASIFICACIÓN DE PEDIDOS - ENTREGA 2 =====\n");
 
@@ -156,15 +158,20 @@ class Program
         switch (categoria)
         {
             case "GRATIS":
-                Console.WriteLine($"¡Excelente! Tu envío es GRATIS. Total a pagar: ${costoEnvio:F2}");
+                Console.WriteLine($"¡Excelente! Tu envío es GRATIS. Total a pagar: {FormatearMoneda(costoEnvio)}");
                 break;
             case "EXPRESS":
-                Console.WriteLine($"Tu pedido será entregado con EXPRESS. Costo de envío: ${costoEnvio:F2}");
+                Console.WriteLine($"Tu pedido será entregado con EXPRESS. Costo de envío: {FormatearMoneda(costoEnvio)}");
                 break;
             default:
-                Console.WriteLine($"Tu pedido será entregado de forma ESTÁNDAR. Costo de envío: ${costoEnvio:F2}");
+                Console.WriteLine($"Tu pedido será entregado de forma ESTÁNDAR. Costo de envío: {FormatearMoneda(costoEnvio)}");
                 break;
         };
+    }
+
+    static string FormatearMoneda(decimal valor)
+    {
+        return $"${valor:F2}";
     }
 
     // Método para mostrar estadísticas de los pedidos
