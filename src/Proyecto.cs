@@ -108,47 +108,70 @@ class Program
 
     static void Main()
     {
-        Console.WriteLine("===== SISTEMA DE CLASIFICACIÓN DE PEDIDOS - ENTREGA 2 =====\n");
-
+        bool sistemaActivo = true;
         List<Pedido> pedidos = new List<Pedido>();
 
-        while (true)
+        do
         {
-            Console.WriteLine("\n----- MENÚ PRINCIPAL -----");
-            Console.WriteLine("1. Agregar nuevo pedido");
-            Console.WriteLine("2. Mostrar estadísticas");
-            Console.WriteLine("3. Salir");
-            Console.Write("Seleccione una opción: ");
+            Console.Clear();
+            MostrarEncabezado();
+            MostrarMenu();
 
             string opcion = Console.ReadLine()?.Trim();
 
-            if (opcion == "1")
+            switch (opcion)
             {
-                Pedido? nuevoPedido = CapturarPedido();
-                if (nuevoPedido != null)
-                {
-                    pedidos.Add(nuevoPedido.Value);
-                    Console.WriteLine("Pedido agregado exitosamente.");
-                }
-                else
-                {
-                    Console.WriteLine("No se pudo agregar el pedido debido a datos inválidos.");
-                }
+                case "1":
+                    Pedido? nuevoPedido = CapturarPedido();
+                    if (nuevoPedido != null)
+                    {
+                        pedidos.Add(nuevoPedido.Value);
+                        Console.WriteLine("Pedido agregado exitosamente.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No se pudo agregar el pedido debido a datos inválidos.");
+                    }
+                    PresionarEnterParaContinuar();
+                    break;
+
+                case "2":
+                    MostrarEstadisticas(pedidos);
+                    PresionarEnterParaContinuar();
+                    break;
+
+                case "0":
+                    Console.WriteLine("Saliendo del sistema. ¡Hasta pronto!");
+                    sistemaActivo = false;
+                    break;
+
+                default:
+                    Console.WriteLine("Opción inválida. Intente nuevamente.");
+                    PresionarEnterParaContinuar();
+                    break;
             }
-            else if (opcion == "2")
-            {
-                MostrarEstadisticas(pedidos);
-            }
-            else if (opcion == "3")
-            {
-                Console.WriteLine("¡Gracias por usar el sistema!");
-                break;
-            }
-            else
-            {
-                Console.WriteLine("Opción inválida. Intente nuevamente.");
-            }
-        }
+        } while (sistemaActivo);
+    }
+
+    static void MostrarEncabezado()
+    {
+        Console.WriteLine("===== SISTEMA DE CLASIFICACIÓN DE PEDIDOS - ENTREGA 2 =====");
+        Console.WriteLine("Unidad 2 · Escalado iterativo: menú continuo, registros múltiples y reportes estadísticos\n");
+    }
+
+    static void MostrarMenu()
+    {
+        Console.WriteLine("----- MENÚ PRINCIPAL -----");
+        Console.WriteLine("1. Registrar nuevo pedido");
+        Console.WriteLine("2. Ver reporte estadístico");
+        Console.WriteLine("0. Salir");
+        Console.Write("Opción: ");
+    }
+
+    static void PresionarEnterParaContinuar()
+    {
+        Console.WriteLine("\nPresione Enter para continuar...");
+        Console.ReadLine();
     }
 
     // Método para mostrar mensaje personalizado según categoría
