@@ -135,6 +135,9 @@ dotnet run
 4. **refactor:** Mejorar código con constantes y método separado para mensajes (Yeisson Gaviria)
 5. **docs:** Agregar información de commits y mejoras (Yeisson Gaviria)
 6. **docs:** Agregar comentario de documentación al inicio del archivo (Yeisson Gaviria)
+7. **docs:** Actualizar README con fecha de entrega 2 y descripción de Entrega 2 (BL4Z3YT)
+8. **refactor:** Añadir método para formatear moneda en salidas de consola (BL4Z3YT)
+9. **test:** Agregar casos de prueba para múltiples pedidos y estadísticas (Yeisson Gaviria)
 
 ---
 
