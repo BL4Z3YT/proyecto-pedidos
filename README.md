@@ -2,7 +2,8 @@
 
 **Equipo:** Juan David Agudelo y Yeisson Gaviria  
 **Modalidad:** A  
-**Fecha de entrega:** 03/03/2026
+**Fecha de entrega:** 08/04/2026  
+**Entrega:** Entrega 2 - Menú continuo, registros múltiples y reportes estadísticos
 
 ---
 
