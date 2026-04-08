@@ -98,3 +98,11 @@
 
 **Salida esperada:**
 - Error: Cantidad de ítems debe ser mayor a 0.
+
+## Caso 10: Salir del menú principal
+**Entrada:**
+- Opción: 3
+
+**Salida esperada:**
+- Mensaje de despedida
+- Programa finaliza sin procesar nuevo pedido.
