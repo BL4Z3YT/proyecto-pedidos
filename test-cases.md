@@ -99,6 +99,23 @@
 **Salida esperada:**
 - Error: Cantidad de ítems debe ser mayor a 0.
 
+## Caso 10: Reporte estadístico con colección vacía
+**Entrada:**
+- Opción de menú: 2
+- No se ha registrado ningún pedido
+
+**Salida esperada:**
+- Mensaje: No hay pedidos registrados.
+- El programa debe continuar activo después del reporte.
+
+## Caso 11: Salir del menú principal
+**Entrada:**
+- Opción de menú: 0
+
+**Salida esperada:**
+- Mensaje de despedida
+- El programa finaliza sin registrar nuevos pedidos.
+
 ## Caso 10: Salir del menú principal
 **Entrada:**
 - Opción: 3

@@ -123,7 +123,18 @@ dotnet run
 
 ✓ **Proyecto completado** - Sistema de clasificación de pedidos funcionando  
 ✓ **Equipo colaborando** - Ambos integrantes con commits verificados  
+✓ **Entrega 2 cumplida** con menú continuo, registros múltiples y reportes estadísticos  
 ✓ **20%** de mejoras y refactorización implementadas por Yeisson Gaviria  
+
+---
+
+## Requisitos de la Entrega 2
+
+- Ciclo principal implementado con `do-while` y `switch`.  
+- La colección de pedidos persiste entre todas las iteraciones del menú.  
+- El reporte estadístico reinicia acumuladores en cada ejecución y no reutiliza estado de carga.  
+- Las entradas inválidas se manejan sin colapsar con `TryParse` y validaciones de dominio.  
+- El menú usa opciones `1`, `2` y `0` para registrar, mostrar reporte y salir.
 
 ---
 
