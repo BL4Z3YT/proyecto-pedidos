@@ -74,3 +74,27 @@
 
 **Salida esperada:**
 - Error: Ciudad destino debe ser una de las siguientes opciones: interior, exterior
+
+## Caso 8: Múltiples pedidos y reporte estadístico
+**Entrada:**
+- Pedido 1: monto 200000, ciudad interior, tipo cliente recurrente, ítems 2
+- Pedido 2: monto 120000, ciudad exterior, tipo cliente nuevo, ítems 4
+- Pedido 3: monto 350000, ciudad interior, tipo cliente nuevo, ítems 1
+
+**Salida esperada:**
+- Pedido 1: GRATIS, costo envío $0.00
+- Pedido 2: ESTÁNDAR, costo envío $35000.00
+- Pedido 3: EXPRESS, costo envío $25000.00
+- Total de pedidos: 3
+- Costo total de envíos: $60000.00
+- Costo promedio de envío: $20000.00
+
+## Caso 9: Validación de cantidad de ítems inválida
+**Entrada:**
+- Monto: 50000
+- Ciudad: interior
+- Tipo cliente: nuevo
+- Cantidad ítems: 0
+
+**Salida esperada:**
+- Error: Cantidad de ítems debe ser mayor a 0.
