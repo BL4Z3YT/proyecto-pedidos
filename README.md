@@ -121,24 +121,69 @@ dotnet run
 
 ## Estado del Proyecto
 
-✓ **Proyecto completado** - Sistema de clasificación de pedidos funcionando  
-✓ **Equipo colaborando** - Ambos integrantes con commits verificados  
-✓ **Entrega 2 cumplida** con menú continuo, registros múltiples y reportes estadísticos  
-✓ **20%** de mejoras y refactorización implementadas por Yeisson Gaviria  
+✓ **Entrega 3 cumplida** - Refactorización modular con funciones especializadas  
+✓ **Equipo colaborando** - BL4Z3YT y Yeisson Gaviria con commits distribuidos  
+✓ **Arquitectura modular** - Separación de responsabilidades en capas  
+✓ **Documentación XML** - Funciones principales documentadas
 
 ---
 
-## Requisitos de la Entrega 2
+## Arquitectura de Entrega 3
 
-- Ciclo principal implementado con `do-while` y `switch`.  
-- La colección de pedidos persiste entre todas las iteraciones del menú.  
-- El reporte estadístico reinicia acumuladores en cada ejecución y no reutiliza estado de carga.  
-- Las entradas inválidas se manejan sin colapsar con `TryParse` y validaciones de dominio.  
-- El menú usa opciones `1`, `2` y `0` para registrar, mostrar reporte y salir.
+### Estructura Modular
+
+El sistema está dividido en 5 capas funcionales con responsabilidad única:
+
+| Capa | Funciones | Responsabilidad |
+|------|-----------|-----------------|
+| **ENTRADA** | `ObtenerDecimalValido()`, `ObtenerOpcionValida()`, `ObtenerEnteroValido()` | Validar y obtener datos del usuario con reintentos |
+| **VALIDACIÓN** | Integrada en funciones de entrada | Garantizar formato y dominio de datos |
+| **LÓGICA NEGOCIO** | `DeterminarCategoriaYCosto()`, `CalcularCostoEnvio()` | Aplicar reglas de clasificación y cálculo |
+| **ORQUESTACIÓN** | `RegistrarPedido()`, `Main()` | Coordinar flujo entre capas |
+| **PRESENTACIÓN** | `MostrarResumenPedido()`, `MostrarEstadisticas()`, `MostrarMensajeAlCliente()` | Mostrar resultados al usuario |
+| **AUXILIAR** | `FormatearMoneda()`, `PresionarEnterParaContinuar()` | Utilitarios de formato y UI |
+
+### Diagrama de Flujo
+
+```
+Main() [Orquestación]
+ ├── MostrarEncabezado() [UI]
+ ├── MostrarMenu() [UI]
+ ├── switch(opcion)
+ │   ├── case "1": RegistrarPedido() [Orquestación]
+ │   │    ├── CapturarPedidoCompleto() [Entrada]
+ │   │    │   ├── ObtenerDecimalValido() [Validación]
+ │   │    │   ├── ObtenerOpcionValida() [Validación]
+ │   │    │   └── ObtenerEnteroValido() [Validación]
+ │   │    ├── DeterminarCategoriaYCosto() [Lógica]
+ │   │    ├── CalcularCostoEnvio() [Lógica]
+ │   │    ├── MostrarResumenPedido() [Presentación]
+ │   │    └── MostrarMensajeAlCliente() [Presentación]
+ │   ├── case "2": MostrarEstadisticas() [Presentación]
+ │   └── case "0": Salir
+```
+
+### Documentación de Funciones
+
+Todas las funciones principales contienen:
+- `<summary>`: Descripción del propósito
+- `<param>`: Documentación de parámetros
+- `<returns>`: Descripción del valor retornado
 
 ---
 
-## Commits Realizados
+## Requisitos de la Entrega 3
+
+- ✓ Refactorización de E1/E2 en funciones modulares sin código monolítico en Main
+- ✓ Jerarquía modular clara: Main solo coordina, UI/validación/lógica separadas
+- ✓ Firmas correctas: parámetros con propósito claro, tipos de retorno justificados
+- ✓ Documentación XML con `///` en funciones principales
+- ✓ README actualizado con arquitectura y tabla de funciones
+- ✓ Commits de ambos integrantes representando avances reales
+
+---
+
+## Estado del Proyecto - ANTERIOR
 
 1. **init:** README con descripción del problema y diseño IPO (Juan David Agudelo)
 2. **feat:** Declaración de variables y lectura de entradas (Juan David Agudelo)
