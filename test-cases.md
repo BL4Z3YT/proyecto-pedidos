@@ -99,7 +99,7 @@
 **Salida esperada:**
 - Error: Cantidad de ítems debe ser mayor a 0.
 
-## Caso 10: Reporte estadístico con colección vacía
+## Caso 10: Reporte estadístico con coleción vacía
 **Entrada:**
 - Opción de menú: 2
 - No se ha registrado ningún pedido
@@ -113,8 +113,43 @@
 - Opción de menú: 0
 
 **Salida esperada:**
-- Mensaje de despedida
+- Mensaje de despedida: "Saliendo del sistema. ¡Hasta pronto!"
 - El programa finaliza sin registrar nuevos pedidos.
+
+## Caso 12: Validación de reintentos - monto negativo
+**Entrada:**
+- Intento 1: Monto: -50000 (inválido)
+- Intento 2: Monto: 100000 (válido)
+- Continuar con entrada válida
+
+**Salida esperada:**
+- Error en intento 1
+- Reintento automático sin salir de la función
+- Aceptar entrada válida en intento 2
+
+## Caso 13: Validación de reintentos - opción inválida
+**Entrada:**
+- Intento 1: Ciudad: "bogota" (inválido)
+- Intento 2: Ciudad: "interior" (válido)
+
+**Salida esperada:**
+- Error mostrando opciones válidas
+- Reintento automático
+- Aceptar "interior"
+
+## Caso 14: Múltiples pedidos con reporte completo
+**Entrada:**
+- Pedido 1: 200000, interior, recurrente, 2 ítems
+- Pedido 2: 120000, exterior, nuevo, 4 ítems
+- Pedido 3: 350000, interior, nuevo, 1 ítem
+- Opción 2 para ver reporte
+
+**Salida esperada:**
+- Pedido 1: GRATIS, $0.00
+- Pedido 2: ESTÁNDAR, $35000.00
+- Pedido 3: EXPRESS, $25000.00
+- Reporte: Total 3 pedidos, costo total $60000.00, promedio $20000.00
+- Desglose por categoría, ciudad y tipo cliente
 
 ## Caso 10: Salir del menú principal
 **Entrada:**
