@@ -172,7 +172,59 @@ Todas las funciones principales contienen:
 
 ---
 
-## Requisitos de la Entrega 3
+## Guía de Funciones Modulares
+
+### Capa de Entrada y Validación
+
+#### `ObtenerDecimalValido(string prompt, string campo) → decimal`
+Solicita repetidamente un valor decimal al usuario hasta obtener uno válido.
+
+#### `ObtenerOpcionValida(string prompt, string[] opciones, string campo) → string`
+Solicita una opción del usuario de un conjunto permitido (reintentos incluidos).
+
+#### `ObtenerEnteroValido(string prompt, string campo) → int`
+Solicita repetidamente un valor entero positivo hasta obtener uno válido.
+
+### Capa de Lógica de Negocio
+
+#### `DeterminarCategoriaYCosto(decimal monto, string tipoCliente, int cantItems) → (string, decimal)`
+Aplica las 3 reglas de clasificación:
+- Regla 1: Gratis si monto ≥ 150K Y cliente recurrente
+- Regla 2: Express si ítems ≥ 5 O monto ≥ 300K
+- Regla 3: Estándar en otros casos
+
+Retorna tupla: (categoría, costoBase)
+
+#### `CalcularCostoEnvio(decimal costoBase, string ciudad) → decimal`
+Suma el recargo de exterior ($20K) si aplica.
+
+#### `FormatearMoneda(decimal valor) → string`
+Formatea un valor como moneda: `$valor:F2`
+
+### Capa de Orquestación
+
+#### `Main() → void`
+Orquesta el ciclo de vida: do-while + switch
+- Responsabilidad única: delegar, no calcular
+- Capa de datos persiste entre iteraciones
+
+#### `RegistrarPedido(List<Pedido> pedidos) → void`
+Coordina todo el flujo de registro:
+1. Captura datos validados
+2. Procesa lógica de negocio
+3. Persiste en colección
+4. Presenta resultados
+
+### Capa de Presentación
+
+#### `MostrarEstadisticas(List<Pedido> pedidos) → void`
+Calcula métricas con acumuladores reiniciados:
+- Total de pedidos y costo
+- Promedio de envío
+- Desglose por categoría, ciudad, cliente
+- Maneja colección vacía sin excepción
+
+---
 
 - ✓ Refactorización de E1/E2 en funciones modulares sin código monolítico en Main
 - ✓ Jerarquía modular clara: Main solo coordina, UI/validación/lógica separadas
